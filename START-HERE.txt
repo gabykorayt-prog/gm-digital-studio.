@@ -1,0 +1,24 @@
+G&M DIGITAL STUDIO — FULL WEBSITE CODE
+
+HOW TO OPEN THE WEBSITE
+1. Extract the ZIP file.
+2. Open the folder named GM-Digital-Studio-Full-Code.
+3. Double-click index.html.
+4. The website will open in your browser.
+
+IMPORTANT
+- Keep the assets folder beside index.html.
+- Do not rename or move the images inside assets unless you also update their paths in index.html.
+- An internet connection is recommended the first time so the Playfair Display and Montserrat fonts can load.
+
+FILES
+- index.html: all HTML, CSS, and JavaScript for the website.
+- assets/: optimized logo and background images.
+
+طريقة فتح الموقع
+1. فك ضغط ملف ZIP.
+2. افتح مجلد GM-Digital-Studio-Full-Code.
+3. اضغط مرتين على index.html.
+4. سيفتح الموقع مباشرة في المتصفح.
+
+مهم: أبقِ مجلد assets بجانب ملف index.html.

@@ -1,0 +1,1493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080f17">
+  <title>G&M Digital Studio — Ideas, Design & Code</title>
+  <meta name="description" content="G&M Digital Studio creates refined, responsive websites for ambitious businesses and growing brands.">
+  <link rel="preload" as="image" href="assets/hero-coast.webp" type="image/webp" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/gm-favicon.png">
+  <style>
+    :root {
+      --ink: #080f17;
+      --ink-soft: #0e1a2a;
+      --navy: #1e3a8a;
+      --blue: #3b82f6;
+      --blue-soft: #8fb8ff;
+      --ivory: #f7f3ed;
+      --stone: #e8e6e1;
+      --muted: #9ca7b5;
+      --line: rgba(255,255,255,.14);
+      --glass: rgba(8,15,23,.68);
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "Montserrat", system-ui, sans-serif;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--ink);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ivory);
+      background:
+        radial-gradient(circle at 90% 8%, rgba(59,130,246,.13), transparent 30rem),
+        var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      color: white;
+      background: var(--blue);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, input, textarea, select { font: inherit; }
+
+    button { color: inherit; }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -4rem;
+      z-index: 200;
+      padding: .7rem 1rem;
+      color: var(--ink);
+      background: var(--ivory);
+      border-radius: 999px;
+      transition: top .2s ease;
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .shell {
+      width: min(calc(100% - 3rem), var(--max));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(8,15,23,.82), transparent);
+      transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(8,15,23,.82);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: none;
+    }
+
+    .brand img {
+      width: 76px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 13px rgba(59,130,246,.16));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: rgba(247,243,237,.78);
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      transition: color .2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: -.45rem;
+      height: 1px;
+      background: var(--blue-soft);
+      transition: right .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible { color: white; }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after { right: 0; }
+
+    .nav-cta,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .7rem;
+      min-height: 48px;
+      padding: .78rem 1.35rem;
+      border: 1px solid rgba(143,184,255,.66);
+      border-radius: 999px;
+      color: white;
+      background: rgba(30,58,138,.18);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible,
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(59,130,246,.24);
+      border-color: var(--blue-soft);
+      box-shadow: 0 12px 32px rgba(59,130,246,.16);
+    }
+
+    .button.primary {
+      color: var(--ink);
+      background: var(--ivory);
+      border-color: var(--ivory);
+    }
+
+    .button.primary:hover,
+    .button.primary:focus-visible {
+      background: white;
+      border-color: white;
+      box-shadow: 0 12px 36px rgba(255,255,255,.16);
+    }
+
+    .button .arrow,
+    .nav-cta .arrow { font-size: 1rem; }
+
+    .menu-button {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(8,15,23,.5);
+      cursor: pointer;
+    }
+
+    .menu-button span,
+    .menu-button::before,
+    .menu-button::after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 1px;
+      margin: 5px auto;
+      background: var(--ivory);
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .menu-button[aria-expanded="true"] span { opacity: 0; }
+    .menu-button[aria-expanded="true"]::before { transform: translateY(6px) rotate(45deg); }
+    .menu-button[aria-expanded="true"]::after { transform: translateY(-6px) rotate(-45deg); }
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+      background: #07101a;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(90deg, rgba(5,12,21,.98) 0%, rgba(5,12,21,.9) 31%, rgba(5,12,21,.4) 61%, rgba(5,12,21,.22) 100%),
+        linear-gradient(0deg, #080f17 0%, transparent 28%),
+        url("assets/hero-coast.webp") 66% center / cover no-repeat;
+      transform: scale(1.015);
+      animation: heroDrift 16s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -35% 18%;
+      z-index: -2;
+      height: 65%;
+      background: radial-gradient(ellipse, rgba(59,130,246,.23), transparent 63%);
+      filter: blur(30px);
+    }
+
+    @keyframes heroDrift {
+      from { transform: scale(1.015); }
+      to { transform: scale(1.055); }
+    }
+
+    .hero-grid {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(18rem, .95fr);
+      align-items: center;
+      padding-top: 8rem;
+      padding-bottom: 5rem;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      padding-block: 4rem 2rem;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin: 0 0 1.35rem;
+      color: var(--blue-soft);
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 700px;
+      margin-bottom: 1.5rem;
+      font-family: var(--serif);
+      font-size: clamp(4rem, 7.2vw, 6.9rem);
+      font-weight: 500;
+      letter-spacing: -.045em;
+      line-height: .96;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--ivory);
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-lead {
+      max-width: 570px;
+      margin-bottom: 2.1rem;
+      color: rgba(247,243,237,.72);
+      font-size: clamp(1rem, 1.4vw, 1.16rem);
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .9rem;
+    }
+
+    .hero-side {
+      align-self: end;
+      justify-self: end;
+      display: grid;
+      gap: 1rem;
+      width: min(100%, 285px);
+      padding-bottom: 1.2rem;
+    }
+
+    .hero-note {
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-note strong {
+      display: block;
+      margin-bottom: .25rem;
+      color: white;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .hero-note span {
+      color: var(--muted);
+      font-size: .74rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .scroll-mark {
+      position: absolute;
+      left: 50%;
+      bottom: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      transform: translateX(-50%);
+    }
+
+    .scroll-mark::after {
+      content: "";
+      width: 3px;
+      height: 8px;
+      border-radius: 9px;
+      background: var(--blue-soft);
+      animation: scrollDot 1.6s infinite;
+    }
+
+    @keyframes scrollDot {
+      0% { transform: translateY(-9px); opacity: 0; }
+      35% { opacity: 1; }
+      100% { transform: translateY(9px); opacity: 0; }
+    }
+
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+      background: #09121e;
+    }
+
+    .marquee-track {
+      width: max-content;
+      display: flex;
+      gap: 2.2rem;
+      padding: 1rem 0;
+      color: rgba(247,243,237,.58);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      animation: marquee 28s linear infinite;
+    }
+
+    .marquee-track b {
+      color: var(--blue-soft);
+      font-size: .9rem;
+    }
+
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    section { position: relative; }
+
+    .section {
+      padding: clamp(6rem, 10vw, 9rem) 0;
+      content-visibility: auto;
+      contain-intrinsic-size: 900px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: .65fr 1.35fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      color: var(--blue-soft);
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+    }
+
+    .section-label span {
+      display: inline-block;
+      width: 30px;
+      margin-right: .75rem;
+      border-top: 1px solid currentColor;
+      transform: translateY(-.2rem);
+    }
+
+    .section-title {
+      max-width: 850px;
+      margin-bottom: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 5.2vw, 5.4rem);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+
+    .section-title em {
+      color: var(--blue-soft);
+      font-weight: 500;
+    }
+
+    .about {
+      background:
+        linear-gradient(115deg, #f7f3ed 0%, #f7f3ed 61%, #e8e6e1 100%);
+      color: var(--ink);
+    }
+
+    .about .section-label { color: var(--navy); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: clamp(3rem, 8vw, 8rem);
+      align-items: start;
+    }
+
+    .about-copy {
+      max-width: 650px;
+      color: #3e4651;
+      font-size: 1.08rem;
+    }
+
+    .about-copy p:first-child {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+      line-height: 1.45;
+    }
+
+    .principles {
+      border-top: 1px solid rgba(8,15,23,.18);
+    }
+
+    .principle {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 1rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(8,15,23,.18);
+    }
+
+    .principle .num {
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.15rem;
+    }
+
+    .principle strong {
+      display: block;
+      margin-bottom: .2rem;
+      font-size: .88rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .principle p {
+      margin-bottom: 0;
+      color: #5c6570;
+      font-size: .92rem;
+    }
+
+    .services {
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(8,15,23,.88), rgba(8,15,23,.97)),
+        url("assets/blue-ribbons.webp") center / cover no-repeat;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .service-card {
+      min-height: 270px;
+      padding: 2rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(8,15,23,.42);
+      backdrop-filter: blur(8px);
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .service-card:hover {
+      z-index: 1;
+      background: rgba(30,58,138,.28);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 2.6rem;
+      color: var(--blue-soft);
+    }
+
+    .service-card .index {
+      float: right;
+      color: rgba(247,243,237,.34);
+      font-family: var(--serif);
+      font-size: .9rem;
+    }
+
+    .service-card h3 {
+      margin-bottom: .75rem;
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 500;
+    }
+
+    .service-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.65;
+    }
+
+    .work {
+      background: #08111d;
+    }
+
+    .case-study {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      min-height: 650px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 10% 15%, rgba(59,130,246,.18), transparent 32%),
+        #0c1726;
+    }
+
+    .case-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(2.2rem, 5vw, 4.5rem);
+    }
+
+    .project-count {
+      color: var(--blue-soft);
+      font-family: var(--serif);
+      font-size: 1.1rem;
+    }
+
+    .case-copy h3 {
+      margin-bottom: .7rem;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5vw, 5.7rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .case-copy > div > p {
+      max-width: 440px;
+      color: var(--muted);
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: 1.7rem 0;
+    }
+
+    .tag {
+      padding: .5rem .75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: rgba(247,243,237,.72);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .case-features {
+      display: grid;
+      gap: .8rem;
+      margin-top: 2rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .case-feature {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: rgba(247,243,237,.78);
+      font-size: .86rem;
+    }
+
+    .case-feature span:last-child { color: var(--blue-soft); }
+
+    .case-visual {
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 60% 45%, rgba(59,130,246,.32), transparent 38%),
+        linear-gradient(145deg, #142b51, #06101c 68%);
+    }
+
+    .case-visual::before {
+      content: "80°";
+      position: absolute;
+      right: -1rem;
+      top: 1rem;
+      color: rgba(255,255,255,.035);
+      font-family: var(--serif);
+      font-size: clamp(12rem, 22vw, 21rem);
+      line-height: 1;
+    }
+
+    .case-visual .laptop {
+      position: absolute;
+      width: 110%;
+      max-width: none;
+      left: -17%;
+      bottom: 1%;
+      filter: drop-shadow(0 35px 55px rgba(0,0,0,.55));
+      transform: rotate(-2deg);
+    }
+
+    .case-visual .phone {
+      position: absolute;
+      width: 29%;
+      right: 3%;
+      bottom: -9%;
+      filter: drop-shadow(0 35px 45px rgba(0,0,0,.58));
+      transform: rotate(4deg);
+    }
+
+    .studio {
+      overflow: hidden;
+      color: var(--ivory);
+      background:
+        linear-gradient(90deg, rgba(8,15,23,.92) 0%, rgba(8,15,23,.68) 58%, rgba(8,15,23,.34) 100%),
+        url("assets/blue-ribbons.webp") center / cover no-repeat;
+    }
+
+    .studio-layout {
+      display: block;
+    }
+
+    .studio-art {
+      display: none;
+    }
+
+    .studio-copy {
+      max-width: 760px;
+      padding-block: clamp(2rem, 5vw, 4.5rem);
+    }
+
+    .studio-copy .section-label { color: var(--blue-soft); }
+
+    .studio-copy h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: -.04em;
+    }
+
+    .studio-copy > p {
+      color: rgba(247,243,237,.74);
+      font-size: 1.04rem;
+    }
+
+    .deliverables {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 2rem;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .deliverable {
+      padding: 1.2rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .deliverable::before {
+      content: "✦";
+      margin-right: .6rem;
+      color: var(--blue);
+    }
+
+    .process { background: #080f17; }
+
+    .process-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .process-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 1.1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding-left .25s ease, background .25s ease;
+    }
+
+    .process-row:hover {
+      padding-left: 1rem;
+      background: linear-gradient(90deg, rgba(59,130,246,.08), transparent 70%);
+    }
+
+    .process-row .num {
+      color: var(--blue-soft);
+      font-family: var(--serif);
+    }
+
+    .process-row h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 500;
+    }
+
+    .process-row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .contact {
+      overflow: hidden;
+      padding: clamp(6rem, 12vw, 11rem) 0;
+      text-align: center;
+      background:
+        linear-gradient(rgba(8,15,23,.75), rgba(8,15,23,.92)),
+        url("assets/hero-coast.webp") center / cover;
+    }
+
+    .contact::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 38%, rgba(59,130,246,.22), transparent 35%);
+    }
+
+    .contact .shell { position: relative; }
+
+    .contact .section-label { display: block; margin-bottom: 1.5rem; }
+
+    .contact h2 {
+      max-width: 980px;
+      margin: 0 auto 1.5rem;
+      font-family: var(--serif);
+      font-size: clamp(3.6rem, 8vw, 8rem);
+      font-weight: 500;
+      line-height: .92;
+      letter-spacing: -.055em;
+    }
+
+    .contact p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: rgba(247,243,237,.7);
+    }
+
+    .site-footer {
+      padding: 2rem 0;
+      border-top: 1px solid var(--line);
+      background: #050a11;
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-meta {
+      color: var(--muted);
+      font-size: .74rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: rgba(247,243,237,.72);
+      font-size: .78rem;
+    }
+
+    .brief-dialog {
+      width: min(680px, calc(100% - 2rem));
+      max-height: 90vh;
+      padding: 0;
+      color: var(--ivory);
+      border: 1px solid rgba(143,184,255,.28);
+      border-radius: 1.4rem;
+      background: #0c1726;
+      box-shadow: 0 32px 100px rgba(0,0,0,.7);
+    }
+
+    .brief-dialog::backdrop {
+      background: rgba(2,7,12,.8);
+      backdrop-filter: blur(10px);
+    }
+
+    .dialog-inner { padding: clamp(1.4rem, 5vw, 3rem); }
+
+    .dialog-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+
+    .dialog-top h2 {
+      margin-bottom: .35rem;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .dialog-top p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .dialog-close {
+      width: 42px;
+      height: 42px;
+      flex: none;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: white;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .brief-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: .45rem;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      color: rgba(247,243,237,.75);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 50px;
+      padding: .8rem 1rem;
+      color: white;
+      border: 1px solid var(--line);
+      border-radius: .7rem;
+      outline: none;
+      background: rgba(255,255,255,.035);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .field textarea { min-height: 120px; resize: vertical; }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--blue-soft);
+      box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+    }
+
+    .field select option { color: var(--ink); }
+
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: .5rem;
+    }
+
+    .form-status {
+      min-height: 1.5em;
+      color: var(--blue-soft);
+      font-size: .82rem;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--blue-soft);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 960px) {
+      .nav-links {
+        position: fixed;
+        inset: 80px 1rem auto;
+        display: grid;
+        gap: 0;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: rgba(8,15,23,.96);
+        backdrop-filter: blur(18px);
+        transform: translateY(-18px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .nav-links li { border-bottom: 1px solid var(--line); }
+      .nav-links li:last-child { border: 0; }
+      .nav-links a { display: block; padding: 1rem; font-size: .9rem; }
+      .nav-cta { display: none; }
+      .menu-button { display: block; }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        align-content: center;
+      }
+
+      .hero-side { display: none; }
+
+      .section-head,
+      .about-grid,
+      .studio-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .case-study { grid-template-columns: 1fr; }
+
+      .case-visual { min-height: 560px; }
+
+      .studio-art { min-height: 520px; order: 2; }
+
+      .process-row { grid-template-columns: 58px .8fr 1.2fr; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(calc(100% - 2rem), var(--max)); }
+
+      .nav { min-height: 70px; }
+
+      .nav-links { inset-top: 70px; }
+
+      .hero::before {
+        background:
+          linear-gradient(0deg, #080f17 0%, rgba(5,12,21,.55) 52%, rgba(5,12,21,.68) 100%),
+          linear-gradient(90deg, rgba(5,12,21,.8), rgba(5,12,21,.2)),
+          url("assets/hero-coast.webp") 70% center / cover;
+      }
+
+      .hero-grid {
+        padding-top: 6rem;
+        padding-bottom: 4rem;
+      }
+
+      h1 { font-size: clamp(3.5rem, 18vw, 5.2rem); }
+
+      .hero-copy { padding-top: 4rem; }
+
+      .hero-actions { display: grid; }
+      .hero-actions .button { width: 100%; }
+
+      .scroll-mark { display: none; }
+
+      .section { padding: 5rem 0; }
+
+      .section-head { margin-bottom: 2.6rem; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .service-card { min-height: 240px; }
+
+      .case-study { min-height: 0; }
+
+      .case-copy { min-height: 570px; }
+
+      .case-visual { min-height: 430px; }
+
+      .case-visual .laptop { width: 130%; left: -31%; }
+
+      .case-visual .phone { width: 38%; right: 1%; }
+
+      .studio-art { min-height: 390px; }
+
+      .deliverables { grid-template-columns: 1fr; }
+
+      .process-row {
+        grid-template-columns: 45px 1fr;
+        gap: 1rem;
+      }
+
+      .process-row p {
+        grid-column: 2;
+      }
+
+      .footer-grid {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .brief-form { grid-template-columns: 1fr; }
+
+      .form-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .form-actions .button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" id="header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#home" aria-label="G and M Digital Studio home">
+        <img src="assets/gm-logo.webp" width="365" height="280" alt="G&M Digital Studio" fetchpriority="high">
+      </a>
+
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navigation"><span></span></button>
+
+      <ul class="nav-links" id="navigation">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="nav-cta open-brief" type="button">Start a project <span class="arrow">↗</span></button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-grid shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Web design &amp; development</p>
+          <h1>Your Vision.<span>Our Code.</span></h1>
+          <p class="hero-lead">We design and develop modern websites that turn ideas into real businesses.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#about">Explore <span class="arrow">↓</span></a>
+            <button class="button open-brief" type="button">Let's build <span class="arrow">↗</span></button>
+          </div>
+        </div>
+
+        <aside class="hero-side" aria-label="Studio focus">
+          <div class="hero-note">
+            <strong>Ideas × Design × Code</strong>
+            <span>One focused process</span>
+          </div>
+          <div class="hero-note">
+            <strong>Built to feel effortless</strong>
+            <span>Desktop + mobile</span>
+          </div>
+        </aside>
+      </div>
+      <div class="scroll-mark" aria-hidden="true"></div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Brand strategy</span><b>✦</b><span>Web design</span><b>✦</b><span>Development</span><b>✦</b><span>UI/UX</span><b>✦</b><span>Responsive</span><b>✦</b><span>Digital solutions</span><b>✦</b>
+        <span>Brand strategy</span><b>✦</b><span>Web design</span><b>✦</b><span>Development</span><b>✦</b><span>UI/UX</span><b>✦</b><span>Responsive</span><b>✦</b><span>Digital solutions</span><b>✦</b>
+      </div>
+    </div>
+
+    <section class="about section" id="about">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="section-label"><span></span>About G&amp;M</p>
+          <h2 class="section-title">More than websites, <em>we build your next chapter.</em></h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-copy" data-reveal>
+            <p>G&amp;M Digital Studio brings creativity, technology, and strategy into one clear digital experience.</p>
+            <p>We create thoughtful websites for businesses that want to look professional, communicate clearly, and grow with confidence. Every detail—from the first headline to the mobile menu—is designed with purpose.</p>
+          </div>
+
+          <div class="principles" data-reveal>
+            <article class="principle">
+              <span class="num">01</span>
+              <div>
+                <strong>Clear by design</strong>
+                <p>Every page guides visitors toward what matters.</p>
+              </div>
+            </article>
+            <article class="principle">
+              <span class="num">02</span>
+              <div>
+                <strong>Built around your brand</strong>
+                <p>No generic templates. The visual system starts with you.</p>
+              </div>
+            </article>
+            <article class="principle">
+              <span class="num">03</span>
+              <div>
+                <strong>Ready for every screen</strong>
+                <p>A polished experience on desktop, tablet, and mobile.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services section" id="services">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="section-label"><span></span>What we do</p>
+          <h2 class="section-title">Digital work with <em>clarity and character.</em></h2>
+        </div>
+
+        <div class="services-grid" data-reveal>
+          <article class="service-card">
+            <span class="index">01</span>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="7" width="38" height="27" rx="2" stroke="currentColor"/><path d="M17 41h14M24 34v7" stroke="currentColor"/></svg>
+            <h3>Website Design</h3>
+            <p>Modern, focused interfaces shaped around your brand and your visitors.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="index">02</span>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="m18 12-12 12 12 12M30 12l12 12-12 12M27 7l-6 34" stroke="currentColor"/></svg>
+            <h3>Development</h3>
+            <p>Fast, responsive builds with thoughtful interactions and clean structure.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="index">03</span>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="4" y="6" width="40" height="36" rx="2" stroke="currentColor"/><path d="M4 15h40M18 15v27" stroke="currentColor"/></svg>
+            <h3>UI/UX</h3>
+            <p>Simple journeys, useful layouts, and a natural experience across the site.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="index">04</span>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="12" y="3" width="24" height="42" rx="4" stroke="currentColor"/><path d="M21 8h6M22 39h4" stroke="currentColor"/></svg>
+            <h3>Responsive Design</h3>
+            <p>One strong identity, carefully adapted for desktop and mobile visitors.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="index">05</span>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="18" stroke="currentColor"/><circle cx="24" cy="24" r="8" stroke="currentColor"/><path d="M24 6v5M42 24h-5M24 42v-5M6 24h5" stroke="currentColor"/></svg>
+            <h3>Digital Strategy</h3>
+            <p>A clear plan that connects your business goals to the website experience.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="index">06</span>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M43 5 6 21l15 6 6 15L43 5Z" stroke="currentColor"/><path d="m21 27 9-9" stroke="currentColor"/></svg>
+            <h3>Launch &amp; Support</h3>
+            <p>Careful testing, smooth launch, and continued support when you need it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="studio section">
+      <div class="shell studio-layout">
+        <div class="studio-copy" data-reveal>
+          <p class="section-label"><span></span>One connected system</p>
+          <h2>Designed to look refined. Built to work hard.</h2>
+          <p>A professional website is more than a beautiful first screen. We connect the brand, customer journey, content, and technical details into one consistent experience.</p>
+          <div class="deliverables">
+            <span class="deliverable">Brand direction</span>
+            <span class="deliverable">Desktop design</span>
+            <span class="deliverable">Mobile design</span>
+            <span class="deliverable">Development</span>
+            <span class="deliverable">Testing</span>
+            <span class="deliverable">Launch support</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process section" id="process">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="section-label"><span></span>Our process</p>
+          <h2 class="section-title">From the first idea to a <em>confident launch.</em></h2>
+        </div>
+
+        <div class="process-list" data-reveal>
+          <article class="process-row">
+            <span class="num">01</span>
+            <h3>Discover</h3>
+            <p>We understand the business, audience, goals, and content before designing anything.</p>
+          </article>
+          <article class="process-row">
+            <span class="num">02</span>
+            <h3>Design</h3>
+            <p>We shape the visual direction and organize every page around a clear customer journey.</p>
+          </article>
+          <article class="process-row">
+            <span class="num">03</span>
+            <h3>Develop</h3>
+            <p>We turn the approved design into a fast, responsive website with thoughtful details.</p>
+          </article>
+          <article class="process-row">
+            <span class="num">04</span>
+            <h3>Launch</h3>
+            <p>We test every screen, prepare the final website, and support a smooth release.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="shell" data-reveal>
+        <p class="section-label">Have a project in mind?</p>
+        <h2>Let’s build your next chapter.</h2>
+        <p>Tell us what you want to create. We’ll turn the idea into a clear project brief you can share and discuss.</p>
+        <button class="button primary open-brief" type="button">Start your project <span class="arrow">↗</span></button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <a class="brand" href="#home">
+        <img src="assets/gm-logo.webp" width="365" height="280" alt="G&M Digital Studio" loading="lazy">
+      </a>
+      <p class="footer-meta">Ideas × Design × Code</p>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="brief-dialog" id="brief-dialog">
+    <div class="dialog-inner">
+      <div class="dialog-top">
+        <div>
+          <h2>Start your project</h2>
+          <p>Create a clear brief in less than a minute.</p>
+        </div>
+        <button class="dialog-close" type="button" aria-label="Close project form">×</button>
+      </div>
+
+      <form class="brief-form" id="brief-form">
+        <div class="field">
+          <label for="client-name">Your name</label>
+          <input id="client-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="business-name">Business name</label>
+          <input id="business-name" name="business" autocomplete="organization" required>
+        </div>
+        <div class="field">
+          <label for="project-type">Project type</label>
+          <select id="project-type" name="type">
+            <option>Business website</option>
+            <option>E-commerce website</option>
+            <option>Website redesign</option>
+            <option>UI/UX design</option>
+            <option>Other digital project</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="timeline">Ideal timeline</label>
+          <select id="timeline" name="timeline">
+            <option>As soon as possible</option>
+            <option>Within 1 month</option>
+            <option>Within 2–3 months</option>
+            <option>Just exploring</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="project-notes">What would you like to build?</label>
+          <textarea id="project-notes" name="notes" placeholder="Tell us about your idea, the pages you need, or what you want the website to achieve." required></textarea>
+        </div>
+        <div class="form-actions">
+          <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+          <button class="button primary" type="submit">Copy project brief <span class="arrow">↗</span></button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    const header = document.getElementById("header");
+    const menuButton = document.querySelector(".menu-button");
+    const navigation = document.getElementById("navigation");
+    const dialog = document.getElementById("brief-dialog");
+    const briefForm = document.getElementById("brief-form");
+    const formStatus = document.getElementById("form-status");
+
+    const updateHeader = () => header.classList.toggle("scrolled", window.scrollY > 24);
+    updateHeader();
+    addEventListener("scroll", updateHeader, { passive: true });
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      navigation.classList.toggle("open", !isOpen);
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+    });
+
+    navigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navigation.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation");
+      });
+    });
+
+    document.querySelectorAll(".open-brief").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (typeof dialog.showModal === "function") dialog.showModal();
+      });
+    });
+
+    document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+
+    dialog.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
+      const inDialog = event.clientX >= rect.left && event.clientX <= rect.right &&
+        event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inDialog) dialog.close();
+    });
+
+    briefForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(briefForm);
+      const brief = [
+        "G&M DIGITAL STUDIO — PROJECT BRIEF",
+        "",
+        "Name: " + data.get("name"),
+        "Business: " + data.get("business"),
+        "Project: " + data.get("type"),
+        "Timeline: " + data.get("timeline"),
+        "",
+        "Project details:",
+        data.get("notes")
+      ].join("\n");
+
+      try {
+        await navigator.clipboard.writeText(brief);
+        formStatus.textContent = "Brief copied — ready to share.";
+      } catch {
+        formStatus.textContent = "Select and copy your details to share them.";
+      }
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll("[data-reveal]").forEach((element) => revealObserver.observe(element));
+  </script>
+</body>
+</html>
